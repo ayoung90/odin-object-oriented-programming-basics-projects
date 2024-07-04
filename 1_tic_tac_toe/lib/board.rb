@@ -1,6 +1,6 @@
 class Board
   BOARD_SIZE = 3
-  PLACEHOLDER = ' '
+  PLACEHOLDER = ' '.freeze
   def initialize
     @rows = Array.new(BOARD_SIZE, PLACEHOLDER) { Array.new(BOARD_SIZE, PLACEHOLDER) }
   end

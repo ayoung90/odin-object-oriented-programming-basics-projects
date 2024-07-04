@@ -1,4 +1,5 @@
 require_relative './board'
+require_relative './player'
 
 class Game
   def initialize
@@ -8,12 +9,26 @@ class Game
   def turn_and_check_winner(symbol, turn)
     @board.update(turn[0].to_i, turn[1].to_i, symbol)
     @board.display
-    winner?(symbol)
   end
 
-  def winner?(symbol)
-    puts "#{symbol} has won!"
+  def winner?(player)
+    puts "#{player.name} has won!"
     true
+  end
+
+  def turn_input_to_array(name)
+    print "#{name}: Please enter a x,y value: "
+    gets.chomp.split(',')
+  end
+
+  def move(player)
+    valid = false
+    until valid
+      x_y_input = turn_input_to_array(player.name)
+      valid = valid_move?(x_y_input)
+    end
+
+    turn_and_check_winner(player.symbol, x_y_input)
   end
 
   def valid_move?(turn)
