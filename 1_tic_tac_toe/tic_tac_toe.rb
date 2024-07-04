@@ -4,16 +4,17 @@ require_relative './lib/player'
 # create a basic game loop
 new_game = true
 
+puts 'Welcome to Tic Tac Toe'
+
+print 'Player1: Please enter your Name: '
+name = gets.chomp
+player1 = Player.new(name, '+')
+
+print 'Player2: Please enter your Name: '
+name = gets.chomp
+player2 = Player.new(name, '-')
+
 while new_game
-  puts 'Welcome to Tic Tac Toe'
-
-  print 'Player1: Please enter your Name: '
-  name = gets.chomp
-  player1 = Player.new(name, '+')
-
-  print 'Player2: Please enter your Name: '
-  name = gets.chomp
-  player2 = Player.new(name, '-')
 
   game = Game.new
 

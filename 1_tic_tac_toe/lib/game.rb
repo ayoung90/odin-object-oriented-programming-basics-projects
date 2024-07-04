@@ -12,8 +12,13 @@ class Game
   end
 
   def winner?(player)
-    puts "#{player.name} has won!"
-    true
+    if @board.row_win?(player.symbol)
+      # || @board.column_win?(player.symbol) || @board.diagonal_win?(player.symbol)
+
+      puts "#{player.name} has won!"
+      return true
+    end
+    false
   end
 
   def turn_input_to_array(name)
