@@ -1,24 +1,22 @@
 require_relative './board'
-require_relative './player'
+
 class Game
-  def initialize(player1_name, player2_name)
+  def initialize
     @board = Board.new
-    @player1 = Player.new(player1_name, '+')
-    @player2 = Player.new(player2_name, '-')
   end
 
-  def check_winner
-    puts 'Congrats this is a test'
+  def turn_and_check_winner(symbol, turn)
+    @board.update(turn[0].to_i, turn[1].to_i, symbol)
+    @board.display
+    winner?(symbol)
+  end
+
+  def winner?(symbol)
+    puts "#{symbol} has won!"
     true
   end
 
-  def turn; end
-
-  def game_loop
-    until check_winner
-      @board.display
-      @player1.turn
-      @player2.turn
-    end
+  def valid_move?(turn)
+    @board.space_empty?(turn[0].to_i, turn[1].to_i)
   end
 end
