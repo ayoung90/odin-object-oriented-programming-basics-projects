@@ -83,4 +83,9 @@ class Board
 
     false
   end
+
+  # When there are no empty squares. The board is full
+  def board_full?
+    @rows.flatten.none?(PLACEHOLDER)
+  end
 end

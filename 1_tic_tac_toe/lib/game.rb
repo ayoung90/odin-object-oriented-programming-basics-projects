@@ -47,6 +47,17 @@ class Game
     @board.space_empty?(turn[0].to_i, turn[1].to_i)
   end
 
+  # Handle draw conditions
+  # - No more moves
+  # - No possible wins - TODO
+  def no_more_moves?
+    if @board.board_full?
+      puts 'Draw: board is full'
+      return true
+    end
+    false
+  end
+
   private
 
   # Helper. Prompts for input from player. "x,y", converts to array [x,y]

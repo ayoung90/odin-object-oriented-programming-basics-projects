@@ -20,10 +20,10 @@ while new_game
 
   while loop
     game.move(player1)
-    break if game.winner?(player1)
+    break if game.winner?(player1) || game.no_more_moves?
 
     game.move(player2)
-    break if game.winner?(player2)
+    break if game.winner?(player2) || game.no_more_moves?
   end
 
   new_game = false
