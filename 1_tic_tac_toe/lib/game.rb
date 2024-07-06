@@ -18,8 +18,9 @@ class Game
   #  - all symbols vertically or
   #  - A diagonal
   def winner?(player)
-    if @board.row_win?(player.symbol) || @board.column_win?(player.symbol)
-      # || @board.diagonal_win?(player.symbol)
+    if @board.row_win?(player.symbol) ||
+       @board.column_win?(player.symbol) ||
+       @board.diagonal_win?(player.symbol)
 
       puts "#{player.name} has won!"
       return true

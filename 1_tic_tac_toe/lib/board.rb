@@ -73,7 +73,14 @@ class Board
   # [X][_][_] | [_][_][X]
   # [_][X][_] | [_][X][_]
   # [_][_][X] | [X][_][_]
-  def diagonal_win?(_symbol)
-    false # todo
+  def diagonal_win?(symbol)
+    return true if @rows[0][0] == symbol &&
+                   @rows[1][1] == symbol &&
+                   @rows[2][2] == symbol
+    return true if @rows[0][2] == symbol &&
+                   @rows[1][1] == symbol &&
+                   @rows[2][0] == symbol
+
+    false
   end
 end
