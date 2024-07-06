@@ -4,6 +4,7 @@ require_relative './player'
 class Game
   def initialize
     @board = Board.new
+    @board.display # show on init. Otherwise it looks weird until the next turn
   end
 
   # Set the specified symbol on the given location [x,y] array. Then show board
@@ -17,20 +18,13 @@ class Game
   #  - all symbols vertically or
   #  - A diagonal
   def winner?(player)
-    if @board.row_win?(player.symbol)
-      # || @board.column_win?(player.symbol)
+    if @board.row_win?(player.symbol) || @board.column_win?(player.symbol)
       # || @board.diagonal_win?(player.symbol)
 
       puts "#{player.name} has won!"
       return true
     end
     false
-  end
-
-  # Helper. Prompts for input from player. "x,y", converts to array [x,y]
-  def turn_input_to_array(name)
-    print "#{name}: Please enter a x,y value: "
-    gets.chomp.split(',')
   end
 
   # Prompts player until their is a valid input
@@ -50,5 +44,13 @@ class Game
   # - The place should exist (ie. not off the board!)
   def valid_move?(turn)
     @board.space_empty?(turn[0].to_i, turn[1].to_i)
+  end
+
+  private
+
+  # Helper. Prompts for input from player. "x,y", converts to array [x,y]
+  def turn_input_to_array(name)
+    print "#{name}: Please enter a x,y value: "
+    gets.chomp.split(',')
   end
 end

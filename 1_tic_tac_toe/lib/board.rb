@@ -12,6 +12,9 @@ class Board
   end
 
   # Prints the board to the screen along with any moves taken
+  #
+  # TODO
+  # - The board looks ok but not look great. lets improve once other functionality is done
   def display
     @rows.each do |row|
       row.each_with_index do |item, idx|
@@ -23,6 +26,10 @@ class Board
   end
 
   # Updates a square of the board to the given symbol value
+  #
+  # TODO
+  # - for some reason, the x,y are swapped. Lets fix it.
+  # - Or change x,y  to row, column? in which we don't need to swap anything :)
   def update(x_axis, y_axis, symbol)
     @rows[x_axis - 1][y_axis - 1] = symbol
   end
@@ -55,7 +62,7 @@ class Board
   # [_][X][_]
   # [_][X][_]
   def column_win?(symbol)
-    @rows.each_idx do |idx|
+    @rows.each_index do |idx|
       return true if @rows[0][idx] == symbol && @rows[1][idx] == symbol && @rows[2][idx] == symbol
     end
     false

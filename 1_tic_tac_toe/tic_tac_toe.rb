@@ -8,11 +8,11 @@ puts 'Welcome to Tic Tac Toe'
 
 print 'Player1: Please enter your Name: '
 name = gets.chomp
-player1 = Player.new(name, '+')
+player1 = Player.new(name, 'X')
 
 print 'Player2: Please enter your Name: '
 name = gets.chomp
-player2 = Player.new(name, '-')
+player2 = Player.new(name, 'O')
 
 while new_game
 
