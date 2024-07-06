@@ -5,10 +5,10 @@
 # - Checking if a symbol has met win conditions
 class Board
   BOARD_SIZE = 3
-  PLACEHOLDER = ' '
+  PLACEHOLDER = ' '.freeze
 
   def initialize
-    @rows = Array.new(BOARD_SIZE, PLACEHOLDER) { Array.new(BOARD_SIZE, PLACEHOLDER) }
+    @rows = Array.new(BOARD_SIZE) { Array.new(BOARD_SIZE, PLACEHOLDER) }
   end
 
   # Prints the board to the screen along with any moves taken
