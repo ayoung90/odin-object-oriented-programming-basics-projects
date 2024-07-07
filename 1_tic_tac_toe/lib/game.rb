@@ -1,6 +1,11 @@
 require_relative './board'
 require_relative './player'
 
+# Contains the game logic for tic tac toe
+# e.g
+# - Checking win conditions
+# - Handling player moves
+# - Managing updates to game board
 class Game
   def initialize
     @board = Board.new
@@ -29,7 +34,7 @@ class Game
     false
   end
 
-  # Prompts player until their is a valid input
+  # Prompts player until there is a valid input
   # Once received, updates the board
   def move(player)
     valid = false

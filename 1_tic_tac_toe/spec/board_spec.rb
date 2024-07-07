@@ -1,11 +1,11 @@
-require 'spec_helper'
+require_relative 'spec_helper'
 require_relative '../lib/board'
 
 RSpec.describe 'Board' do
   describe 'Check board methods' do
     # TODO: complete unit tests for all methods
 
-    it 'update board' do
+    it 'Update board' do
       board = Board.new
 
       x = 1
