@@ -4,7 +4,7 @@ require_relative './player'
 class Game
   def initialize
     @board = Board.new
-    @board.display # show on init. Otherwise it looks weird until the next turn
+    @board.display # show empty board at the start of the game
   end
 
   # Set the specified symbol on the given location [x,y] array. Then show board
@@ -22,6 +22,7 @@ class Game
        @board.column_win?(player.symbol) ||
        @board.diagonal_win?(player.symbol)
 
+      player.add_win
       puts "#{player.name} has won!"
       return true
     end
