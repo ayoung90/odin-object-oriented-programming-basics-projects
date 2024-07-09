@@ -17,6 +17,7 @@ class Game
     [Peg.new(colour1), Peg.new(colour2), Peg.new(colour3), Peg.new(colour4)]
   end
 
+  # Generate a set of colours for the user to break
   def random_maker
     maker = create_guess(Peg.sample, Peg.sample, Peg.sample, Peg.sample)
 
@@ -35,7 +36,6 @@ class Game
   end
 
   # Prompts player until there is a valid input
-  # Once received, updates the board
   def move(player)
     valid = false
     until valid
@@ -57,7 +57,9 @@ class Game
   end
 
   def record_move(colours)
-    @board.record_row(colours, '1')
+    @board.record_row(create_guess(colours[0], colours[1], colours[2], colours[3]), '1')
+
+    @board.display # view the board for now
   end
 
   def winner?(_player)
@@ -70,7 +72,7 @@ class Game
 
   private
 
-  # Helper. Prompts for input from player. "x,y", converts to array [x,y]
+  # Helper. Prompts for input from player. "blue, blue, blue, blue", converts to array ["blue", "blue", "blue", "blue"]
   def turn_input_to_array(name)
     print "#{name}: Please enter a list of 4 colours in #{Peg.available_colours} 'red,blue,red': "
     gets.chomp.delete(' ').split(',')
