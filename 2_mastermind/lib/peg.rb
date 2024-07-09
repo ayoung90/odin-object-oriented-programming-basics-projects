@@ -2,15 +2,15 @@
 class Peg
   attr_accessor :colour
 
-  def available_colours
-    %w[Blue Orange Green Purple]
+  def self.available_colours
+    %w[blue orange green purple]
   end
 
-  def colour_valid?(colour)
+  def self.colour_valid?(colour)
     available_colours.include?(colour)
   end
 
-  def sample
+  def self.sample
     available_colours.sample
   end
 

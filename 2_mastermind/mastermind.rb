@@ -8,7 +8,7 @@ puts 'Welcome to MasterMind'
 
 print 'Player: Please enter your Name: '
 name = gets.chomp
-player = Player.new(name, 'X')
+player = Human.new(name)
 
 # Check with the user if they want to play again
 def restart_game?
@@ -38,13 +38,14 @@ while new_game
 
   # print_score(player1, player2)
 
+  game.random_maker
+
   # TODO: Mastermind game loop
   while loop
-    game.move(player1)
-    break if game.winner?(player1) || game.no_more_moves?
+    game.move(player)
 
-    game.move(player2)
-    break if game.winner?(player2) || game.no_more_moves?
+    # game.move(player2)
+    break if game.winner?(player) || game.no_more_moves?
   end
 
   new_game = restart_game?

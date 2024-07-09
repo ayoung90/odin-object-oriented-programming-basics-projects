@@ -12,18 +12,15 @@ class Board
   end
 
   # Prints the board to the screen along with any hints
+  # TODO enhance
   def display
     @rows.each do |row|
-      row.each_with_index do |item, idx|
-        print item
-        print ' | ' unless idx == BOARD_SIZE - 1
-      end
-      puts
+      puts row
     end
   end
 
   def current_guess
-    @rows.keys.max
+    @rows.keys.max || 0
   end
 
   # Adds a row to the board with both guess and hints
@@ -34,7 +31,7 @@ class Board
   end
 
   # Record the makers 4 pegs
-  def maker(maker)
+  def maker=(maker)
     @code_maker = maker
   end
 
