@@ -9,29 +9,33 @@ class Board
   MAX_GUESSES = 8
 
   def initialize
-    @rows = {}
+    @rows = []
     @code_maker = []
   end
 
   # Prints the board to the screen along with any hints
   # TODO enhance
   def display
-    @rows.each do |row|
-      puts row
+    @rows.reverse_each do |row|
+      row[:breaker].each { |peg| print "#{peg.colour} ," }
+      print ' | '
+      row[:hint].each { |peg| print "#{peg.colour} ," }
+      puts
     end
+
+    puts
   end
 
+  # what guess are we up to?
   def current_guess
-    @rows.keys.max || 0
+    @rows.size - 1 || 0
   end
 
   # Adds a row to the board with both guess and hints
   def record_row(breaker)
-    next_guess = current_guess + 1
-
     hints = calculate_hint(breaker)
 
-    @rows[next_guess] = { breaker: breaker, hint: hints }
+    @rows.push({ breaker: breaker, hint: hints })
   end
 
   # Record the makers 4 pegs
@@ -39,8 +43,13 @@ class Board
     @code_maker = maker
   end
 
-  # based a guess, calculate the hint flags. (red = right value, right position, white = right value, wrong position)
-  # - Returns an array of hints. Always the same size as the guess
+  # based on a guess, calculate the hint pegs.
+  # - Options
+  #  - red = right value, right position
+  #  - white = right value, wrong position
+  #  - nil = wrong colour
+  #
+  # Returns an array of hints. Always the same size as the guess
   #  - e.g ['red','red',nil,'white']
   def calculate_hint(guess)
     hints = []
@@ -65,6 +74,6 @@ class Board
 
   # When we have recorded all guesses, the game is over
   def out_of_guesses?
-    @rows.fetch(MAX_GUESSES, false)
+    @rows.size == MAX_GUESSES
   end
 end
