@@ -57,7 +57,7 @@ class Game
   end
 
   def record_move(colours)
-    @board.record_row(create_guess(colours[0], colours[1], colours[2], colours[3]), '1')
+    @board.record_row(create_guess(colours[0], colours[1], colours[2], colours[3]))
 
     @board.display # view the board for now
   end
