@@ -1,4 +1,5 @@
 require_relative './key_peg'
+require 'colorize'
 
 # Handles all functionality related to the mastermind board
 # e.g
@@ -14,12 +15,18 @@ class Board
   end
 
   # Prints the board to the screen along with any hints
-  # TODO enhance
   def display
-    @rows.reverse_each do |row|
-      row[:breaker].each { |peg| print "#{peg.colour} ," }
+    @rows.reverse.each_with_index do |row, idx|
+      row[:breaker].each { |peg| print ' O '.colorize(color: peg.colour.to_sym, mode: :bold) }
       print ' | '
-      row[:hint].each { |peg| print "#{peg.colour} ," }
+      row[:hint].each do |peg|
+        if peg.colour.nil?
+          print ' _ '
+        else
+          print ' o '.colorize(color: peg.colour.to_sym, mode: :bold)
+        end
+      end
+      print ' <-- latest' if idx.zero?
       puts
     end
 

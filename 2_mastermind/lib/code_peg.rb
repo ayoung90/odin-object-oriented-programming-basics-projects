@@ -3,7 +3,7 @@ require_relative './peg'
 # Represents a peg in mastermind
 class CodePeg < Peg
   def self.available_colours
-    %w[blue orange green purple]
+    %w[blue yellow green magenta]
   end
 
   def self.sample
