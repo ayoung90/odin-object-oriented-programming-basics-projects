@@ -27,9 +27,9 @@ class Board
   def record_row(breaker)
     next_guess = current_guess + 1
 
-    hint = calculate_hint(breaker)
+    hints = calculate_hint(breaker)
 
-    @rows[next_guess] = { breaker: breaker, hint: hint }
+    @rows[next_guess] = { breaker: breaker, hint: hints }
   end
 
   # Record the makers 4 pegs
@@ -45,9 +45,9 @@ class Board
 
     guess.each_with_index do |peg, idx|
       if peg.colour == @code_maker[idx].colour
-        hints.push('red')
+        hints.push(HintPeg.new('red'))
       elsif @code_maker.any? { |item| item.colour == peg.colour }
-        hints.push('white')
+        hints.push(HintPeg.new('white'))
       else
         hints.push(nil)
       end

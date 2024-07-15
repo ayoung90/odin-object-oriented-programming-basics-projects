@@ -1,5 +1,5 @@
 # Represents a peg in mastermind
-class Peg
+class HintPeg
   attr_accessor :colour
 
   def self.available_colours

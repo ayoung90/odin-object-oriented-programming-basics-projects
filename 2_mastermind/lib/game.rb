@@ -10,16 +10,16 @@ class Game
   end
 
   def colour_valid?(colour)
-    Peg.colour_valid?(colour)
+    HintPeg.colour_valid?(colour)
   end
 
   def create_guess(colour1, colour2, colour3, colour4)
-    [Peg.new(colour1), Peg.new(colour2), Peg.new(colour3), Peg.new(colour4)]
+    [HintPeg.new(colour1), HintPeg.new(colour2), HintPeg.new(colour3), HintPeg.new(colour4)]
   end
 
   # Generate a set of colours for the user to break
   def random_maker
-    maker = create_guess(Peg.sample, Peg.sample, Peg.sample, Peg.sample)
+    maker = create_guess(HintPeg.sample, HintPeg.sample, HintPeg.sample, HintPeg.sample)
 
     @board.maker = maker
     puts 'The Computer has selected 4 colours'
@@ -29,7 +29,7 @@ class Game
     return turn.size unless turn.size == 4
 
     turn.each do |colour|
-      return colour unless Peg.colour_valid?(colour)
+      return colour unless HintPeg.colour_valid?(colour)
     end
 
     true
@@ -47,7 +47,7 @@ class Game
         puts "Error: #{colour_list.size} is too small. Need 4 colours"
         valid = false
       elsif valid != true
-        puts "Error: #{valid} is not a colour in #{Peg.available_colours}"
+        puts "Error: #{valid} is not a colour in #{HintPeg.available_colours}"
         valid = false
       end
 
@@ -74,7 +74,7 @@ class Game
 
   # Helper. Prompts for input from player. "blue, blue, blue, blue", converts to array ["blue", "blue", "blue", "blue"]
   def turn_input_to_array(name)
-    print "#{name}: Please enter a list of 4 colours in #{Peg.available_colours} 'red,blue,red': "
+    print "#{name}: Please enter a list of 4 colours in #{HintPeg.available_colours} 'red,blue,red': "
     gets.chomp.delete(' ').split(',')
   end
 end
