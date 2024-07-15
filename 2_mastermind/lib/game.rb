@@ -1,6 +1,6 @@
 require_relative './board'
 require_relative './human'
-require_relative './peg'
+require_relative './code_peg'
 
 # Contains the game logic for mastermind
 class Game
@@ -10,16 +10,16 @@ class Game
   end
 
   def colour_valid?(colour)
-    HintPeg.colour_valid?(colour)
+    CodePeg.colour_valid?(colour)
   end
 
   def create_guess(colour1, colour2, colour3, colour4)
-    [HintPeg.new(colour1), HintPeg.new(colour2), HintPeg.new(colour3), HintPeg.new(colour4)]
+    [CodePeg.new(colour1), CodePeg.new(colour2), CodePeg.new(colour3), CodePeg.new(colour4)]
   end
 
   # Generate a set of colours for the user to break
   def random_maker
-    maker = create_guess(HintPeg.sample, HintPeg.sample, HintPeg.sample, HintPeg.sample)
+    maker = create_guess(CodePeg.sample, CodePeg.sample, CodePeg.sample, CodePeg.sample)
 
     @board.maker = maker
     puts 'The Computer has selected 4 colours'
@@ -29,7 +29,7 @@ class Game
     return turn.size unless turn.size == 4
 
     turn.each do |colour|
-      return colour unless HintPeg.colour_valid?(colour)
+      return colour unless CodePeg.colour_valid?(colour)
     end
 
     true
@@ -47,7 +47,7 @@ class Game
         puts "Error: #{colour_list.size} is too small. Need 4 colours"
         valid = false
       elsif valid != true
-        puts "Error: #{valid} is not a colour in #{HintPeg.available_colours}"
+        puts "Error: #{valid} is not a colour in #{CodePeg.available_colours}"
         valid = false
       end
 
@@ -62,8 +62,12 @@ class Game
     @board.display # view the board for now
   end
 
-  def winner?(_player)
-    false # todo
+  # the game is won once all the pegs are red in the latest guess
+  def winner?(player)
+    won = @board.all_hints_red?
+    puts "You win #{player.name}!" if won
+
+    won
   end
 
   def no_more_moves?
@@ -74,7 +78,7 @@ class Game
 
   # Helper. Prompts for input from player. "blue, blue, blue, blue", converts to array ["blue", "blue", "blue", "blue"]
   def turn_input_to_array(name)
-    print "#{name}: Please enter a list of 4 colours in #{HintPeg.available_colours} 'red,blue,red': "
+    print "#{name}: Please enter a list of 4 colours in #{CodePeg.available_colours} 'red,blue,red': "
     gets.chomp.delete(' ').split(',')
   end
 end

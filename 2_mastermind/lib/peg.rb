@@ -1,5 +1,5 @@
 # Represents a peg in mastermind
-class HintPeg
+class Peg
   attr_accessor :colour
 
   def self.available_colours
@@ -8,10 +8,6 @@ class HintPeg
 
   def self.colour_valid?(colour)
     available_colours.include?(colour)
-  end
-
-  def self.sample
-    available_colours.sample
   end
 
   def initialize(colour)

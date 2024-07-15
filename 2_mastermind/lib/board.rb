@@ -1,3 +1,5 @@
+require_relative './key_peg'
+
 # Handles all functionality related to the mastermind board
 # e.g
 # - Printing board
@@ -45,15 +47,20 @@ class Board
 
     guess.each_with_index do |peg, idx|
       if peg.colour == @code_maker[idx].colour
-        hints.push(HintPeg.new('red'))
+        hints.push(KeyPeg.new('red'))
       elsif @code_maker.any? { |item| item.colour == peg.colour }
-        hints.push(HintPeg.new('white'))
+        hints.push(KeyPeg.new('white'))
       else
-        hints.push(nil)
+        hints.push(KeyPeg.new(nil))
       end
     end
 
     hints
+  end
+
+  # return if all hints are red in the latest guess
+  def all_hints_red?
+    @rows[current_guess][:hint].all?(&:correct_colour_and_place?)
   end
 
   # When we have recorded all guesses, the game is over
