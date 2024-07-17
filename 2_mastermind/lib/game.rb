@@ -9,24 +9,33 @@ class Game
     @board.display # show empty board at the start of the game
   end
 
+  # returns if the colour is from the allowed list
   def colour_valid?(colour)
     CodePeg.colour_valid?(colour)
   end
 
-  def create_guess(colour1, colour2, colour3, colour4)
-    [CodePeg.new(colour1), CodePeg.new(colour2), CodePeg.new(colour3), CodePeg.new(colour4)]
+  # construct a guess (array of pegs) from an array of colours
+  def create_guess(colours)
+    colours.map { |colour| CodePeg.new(colour) }
   end
 
   # Generate a set of colours for the user to break
   def random_maker
-    maker = create_guess(CodePeg.sample, CodePeg.sample, CodePeg.sample, CodePeg.sample)
+    pegs = []
+    Board::BOARD_SIZE.times do
+      pegs.push(CodePeg.sample)
+    end
+    maker = create_guess(pegs)
 
     @board.maker = maker
-    puts 'The Computer has selected 4 colours'
+    puts "The Computer has selected #{Board::BOARD_SIZE} colours"
   end
 
+  # Ensures a move has
+  #  - The right size (matches the board size)
+  #  - The right colours (from the allowed list)
   def valid_move?(turn)
-    return turn.size unless turn.size == 4
+    return turn.size unless turn.size == Board::BOARD_SIZE
 
     turn.each do |colour|
       return colour unless CodePeg.colour_valid?(colour)
@@ -44,7 +53,7 @@ class Game
 
       # TODO: handle better
       if valid == colour_list.size
-        puts "Error: #{colour_list.size} is too small. Need 4 colours"
+        puts "Error: #{colour_list.size} is too small. Need #{Board::BOARD_SIZE} colours"
         valid = false
       elsif valid != true
         puts "Error: #{valid} is not a colour in #{CodePeg.available_colours}"
@@ -56,8 +65,9 @@ class Game
     record_move(colour_list)
   end
 
+  # store the move and output the board for the user
   def record_move(colours)
-    @board.record_row(create_guess(colours[0], colours[1], colours[2], colours[3]))
+    @board.record_row(create_guess(colours))
 
     @board.display # view the board for now
   end
@@ -70,6 +80,7 @@ class Game
     won
   end
 
+  # check if we have reached the end of the game
   def no_more_moves?
     @board.out_of_guesses?
   end
@@ -78,7 +89,10 @@ class Game
 
   # Helper. Prompts for input from player. "blue, blue, blue, blue", converts to array ["blue", "blue", "blue", "blue"]
   def turn_input_to_array(name)
-    print "#{name}: Please enter a list of 4 colours in #{CodePeg.available_colours} 'red,blue,red': "
-    gets.chomp.delete(' ').split(',')
+    sample_input = "#{CodePeg.available_colours[2]}, #{CodePeg.available_colours[0]}, #{CodePeg.available_colours[2]}, #{CodePeg.available_colours[1]}"
+
+    puts "#{name}: Please enter a list of #{Board::BOARD_SIZE} colours in #{CodePeg.available_colours}"
+    print "e.g: #{sample_input}': "
+    gets.chomp.delete(' ').downcase.split(',')
   end
 end

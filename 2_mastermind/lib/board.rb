@@ -7,7 +7,8 @@ require 'colorize'
 # - Updating board
 class Board
   # mastermind board size
-  MAX_GUESSES = 8
+  MAX_GUESSES = 8 # 8 is the standard mastermind game. increase here for a longer game
+  BOARD_SIZE = 6 # 4 # 4 is the normal board width. however, we can make it bigger
 
   def initialize
     @rows = []
@@ -17,6 +18,7 @@ class Board
   # Prints the board to the screen along with any hints
   def display
     @rows.reverse.each_with_index do |row, idx|
+      print ' |'
       row[:breaker].each { |peg| print ' O '.colorize(color: peg.colour.to_sym, mode: :bold) }
       print ' | '
       row[:hint].each do |peg|
