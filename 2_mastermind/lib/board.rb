@@ -8,7 +8,7 @@ require 'colorize'
 class Board
   # mastermind board size
   MAX_GUESSES = 8 # 8 is the standard mastermind game. increase here for a longer game
-  BOARD_SIZE = 6 # 4 # 4 is the normal board width. however, we can make it bigger
+  BOARD_SIZE =  4 # 4 is the normal board width. however, we can make it bigger
 
   def initialize
     @rows = []
